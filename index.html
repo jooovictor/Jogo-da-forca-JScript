@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jogo Da Forca</title>
+</head>
+<body>
+    <h1 class="title">Jogo da Forca</h1>
+
+    <p>______ <br>
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o <br>
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  /|\ <br>
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   /\ <br>
+        |<br>
+    </p>
+    <p id="reply" class="reply"></p>
+    
+    <button type="button" onclick="jogar()">Jogar</button>
+    
+    <script>
+        
+        
+        let key;
+        let reply;
+        let tamanho_string;
+        let hp;
+        let posreply;
+        let pos;
+        let theme;
+        let chave;
+        let novamente;
+        let vitorias;
+
+        function recebe_letra (letra) {
+            if (letra == '' || letra == undefined){
+                alert('Insira letras por favor.')
+                return recebe_letra(prompt('Escolha uma letra: '));
+            } else if (letra == "rick") { // rick = EASTER EGG.
+                location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ%22");
+                alert('NEVER GONNA GIVE LET YOU DOWN!');
+                return;
+            } else if (letra.length > 1) {
+                alert('Insira apenas UMA letra!')
+                return recebe_letra(prompt('Escolha uma letra: '));
+            } else if (!isNaN(letra)) {
+                alert('Insira apenas LETRAS!');
+                return recebe_letra(prompt('Escolha uma letra: '));
+            } else if (reply.includes(letra)){
+                alert('Essa letra ja foi descoberta!');
+                return recebe_letra(prompt('Escolha uma letra: '));
+            } 
+            pos = theme.indexOf(letra);
+            
+            if (pos == -1){
+                hp--;
+                alert('Errado ' + hp + ': tentativas restantes');
+
+            }
+
+            while (pos != -1) {
+                reply[pos] = (letra);
+                pos = theme.indexOf(letra, pos + 1)
+                console.log(reply);
+            }
+            document.getElementById("reply").innerHTML = reply.join('');
+            
+        }
+        
+        function define_letra (){
+            posreply = reply.indexOf('_');
+            while (posreply != -1) {
+                recebe_letra(prompt('Escolha uma letra: '));
+                posreply = reply.indexOf('_');
+                if (hp <= 0){
+                    alert('Perdeste, clique no botão para tentar novamente');
+                    break;
+                }
+            }
+            return;
+        }
+        
+        function randomizer (temaEscolhido) {
+
+            let filter = key.filter(obj => obj.tema === temaEscolhido);
+            let random = filter.map(obj => obj.palavra);
+            
+            return theme = random[parseInt(Math.random()*(3 - 0) + 0)];
+        }
+       
+        function forca (theme) {
+            tamanho_string = theme.length;
+            reply = [];
+            for ( let count=0; count < tamanho_string; count++) {
+                reply.push('_');
+            }
+            //document.getElementById("reply").innerHTML = reply;
+            console.log(reply);
+            return reply;
+        }
+
+        function jogar() {
+            hp = 5;
+            chave = prompt('Escolha um tema entre: (fruta, esporte ou cep)')
+            while (chave === null || chave.toLowerCase() != 'fruta' && chave.toLowerCase() != 'esporte' && chave.toLowerCase() != 'cep') {
+                alert('Insira um tema valido!')
+                chave = prompt('Escolha um tema entre: (fruta, esporte ou cep)')
+            }
+            randomizer(chave.toLowerCase());
+            forca(theme);
+            define_letra();
+            
+            return alert('You win!');
+        }
+
+        
+        fetch('tema.json')
+            .then(response => response.json())
+            .then(data => {
+                key = data;
+                vitorias = 0;
+                console.log(key);
+                
+            });
+
+
+        
+        
+    </script>
+</body>
+</html>

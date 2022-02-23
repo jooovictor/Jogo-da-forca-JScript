@@ -1,0 +1,91 @@
+[
+    {
+        "palavra" : "morango",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "caju",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "manga",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "mamao",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "pera",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "banana",
+        "tema" : "fruta"
+    },
+    {
+    
+        "palavra" : "brazil",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "argentina",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "russia",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "malazia",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "acre",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "frança",
+        "tema" : "cep"
+    },
+    {
+    
+        "palavra" : "futebol",
+        "tema" : "esporte"
+    },
+    {
+    
+        "palavra" : "tenis",
+        "tema" : "esporte"
+    },
+    {
+    
+        "palavra" : "volei",
+        "tema" : "esporte"
+    },
+    {
+    
+        "palavra" : "nataçao",
+        "tema" : "esporte"
+    },
+    {
+    
+        "palavra" : "cricket",
+        "tema" : "esporte"
+    },
+    {
+    
+        "palavra" : "snowboard",
+        "tema" : "esporte"
+    }
+]
