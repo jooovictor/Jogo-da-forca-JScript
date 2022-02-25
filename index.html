@@ -21,26 +21,14 @@
     <button type="button" onclick="jogar()">Jogar</button>
     
     <script>
-        
-        
-        let key;
-        let reply;
-        let tamanho_string;
-        let hp;
-        let posreply;
-        let pos;
-        let theme;
-        let chave;
-        let novamente;
-        let vitorias;
 
         function recebe_letra (letra) {
             if (letra == '' || letra == undefined){
                 alert('Insira letras por favor.')
                 return recebe_letra(prompt('Escolha uma letra: '));
-            } else if (letra == "rick") { // rick = EASTER EGG.
+            } else if (letra.toLowerCase() == "rick") { // rick = EASTER EGG.
                 location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ%22");
-                alert('NEVER GONNA GIVE LET YOU DOWN!');
+                alert('NEVER GONNA GIVE YOU UP!');
                 return;
             } else if (letra.length > 1) {
                 alert('Insira apenas UMA letra!')
@@ -50,23 +38,33 @@
                 return recebe_letra(prompt('Escolha uma letra: '));
             } else if (reply.includes(letra)){
                 alert('Essa letra ja foi descoberta!');
+                alert(reply);
                 return recebe_letra(prompt('Escolha uma letra: '));
-            } 
+            } else if (erros.includes(letra)){
+                alert('Essa letra ja foi descoberta!');
+                alert(reply);
+                console.log(erros);
+                return recebe_letra(prompt('Escolha uma letra: '));
+            };
+
             pos = theme.indexOf(letra);
             
             if (pos == -1){
                 hp--;
                 alert('Errado ' + hp + ': tentativas restantes');
-
+                alert(reply);
+                erros.push(letra);
+                alert('Erros: ' + erros);
+                return;
             }
 
             while (pos != -1) {
                 reply[pos] = (letra);
                 pos = theme.indexOf(letra, pos + 1)
                 console.log(reply);
+                alert(reply);
             }
             document.getElementById("reply").innerHTML = reply.join('');
-            
         }
         
         function define_letra (){
@@ -79,6 +77,9 @@
                     break;
                 }
             }
+            if (hp > 0) {
+                alert('Parabéns, para jogar novamente clique no botão jogar.');
+            }
             return;
         }
         
@@ -87,47 +88,42 @@
             let filter = key.filter(obj => obj.tema === temaEscolhido);
             let random = filter.map(obj => obj.palavra);
             
-            return theme = random[parseInt(Math.random()*(3 - 0) + 0)];
+            return theme = random[parseInt(Math.random()*(6 - 0) + 0)];
         }
        
         function forca (theme) {
-            tamanho_string = theme.length;
+            let tamanho_string = theme.length;
             reply = [];
+            erros = [];
             for ( let count=0; count < tamanho_string; count++) {
                 reply.push('_');
             }
-            //document.getElementById("reply").innerHTML = reply;
             console.log(reply);
+            alert(reply);
             return reply;
         }
 
         function jogar() {
             hp = 5;
-            chave = prompt('Escolha um tema entre: (fruta, esporte ou cep)')
-            while (chave === null || chave.toLowerCase() != 'fruta' && chave.toLowerCase() != 'esporte' && chave.toLowerCase() != 'cep') {
+            chave = prompt('Escolha um tema entre: (frutas, esporte ou paises)')
+            while (chave === null || chave.toLowerCase() != 'frutas' && chave.toLowerCase() != 'esporte' && chave.toLowerCase() != 'paises') {
                 alert('Insira um tema valido!')
-                chave = prompt('Escolha um tema entre: (fruta, esporte ou cep)')
+                chave = prompt('Escolha um tema entre: (frutas, esporte ou paises)')
             }
             randomizer(chave.toLowerCase());
             forca(theme);
             define_letra();
             
-            return alert('You win!');
+            return;
         }
 
-        
         fetch('tema.json')
             .then(response => response.json())
             .then(data => {
                 key = data;
-                vitorias = 0;
                 console.log(key);
                 
             });
-
-
-        
-        
     </script>
 </body>
 </html>
